@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ateliê Flor de Sal — projeto modelo da Brazuka Web</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--ameixa:#5b2245;--ameixa2:#7a3560;--rosa:#f7e6ea;--rosa2:#efd0d8;--tinta:#2a1420;--cinza:#6e5562}
+*{box-sizing:border-box}
+body{margin:0;background:#fffafb;color:var(--tinta);font-family:Inter,system-ui,sans-serif;font-size:16.5px;line-height:1.55}
+button{font:inherit}
+:focus-visible{outline:3px solid var(--ameixa2);outline-offset:3px}
+.faixa{background:#FFC93C;color:#0E3B2C;font-size:14.5px;font-weight:600;text-align:center;padding:10px 16px}
+.faixa a{color:#0E3B2C}
+.wrap{width:min(100% - 40px,1160px);margin-inline:auto}
+header{position:sticky;top:0;background:rgba(255,250,251,.95);backdrop-filter:blur(6px);border-bottom:1px solid var(--rosa2);z-index:10}
+header .wrap{display:flex;justify-content:space-between;align-items:center;min-height:72px}
+.logo{font-family:'DM Serif Display',serif;font-size:26px;color:var(--ameixa)}
+.sacola{display:flex;align-items:center;gap:10px;background:var(--ameixa);color:#fff;border:0;border-radius:999px;min-height:46px;padding:0 18px;font-weight:600;cursor:pointer}
+.sacola b{background:#fff;color:var(--ameixa);border-radius:999px;min-width:24px;height:24px;display:grid;place-items:center;font-size:13px;padding:0 6px}
+.topo{padding:56px 0 32px;display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap}
+.topo h1{font-family:'DM Serif Display',serif;font-weight:400;font-size:clamp(40px,6vw,72px);line-height:1;margin:0;max-width:14ch}
+.topo p{color:var(--cinza);max-width:38ch;margin:0}
+.filtros{display:flex;gap:10px;flex-wrap:wrap;padding-bottom:28px}
+.filtro{border:1.5px solid var(--rosa2);background:#fff;color:var(--tinta);border-radius:999px;min-height:44px;padding:0 18px;cursor:pointer;font-weight:500}
+.filtro[aria-pressed="true"]{background:var(--ameixa);border-color:var(--ameixa);color:#fff}
+.grade{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;padding-bottom:96px}
+.prod{display:flex;flex-direction:column}
+.prod .img{aspect-ratio:4/5;border-radius:18px;display:grid;place-items:center;font-family:'DM Serif Display',serif;font-size:22px;color:rgba(42,20,32,.55)}
+.prod h2{font-size:17px;font-weight:600;margin:14px 0 2px}
+.prod .cat{color:var(--cinza);font-size:14px}
+.prod .linha{display:flex;justify-content:space-between;align-items:center;margin-top:10px;gap:8px}
+.prod .preco{font-weight:600;font-size:18px}
+.add{border:1.5px solid var(--ameixa);background:transparent;color:var(--ameixa);border-radius:999px;min-height:44px;padding:0 16px;font-weight:600;cursor:pointer}
+.add:hover{background:var(--ameixa);color:#fff}
+.painel{position:fixed;inset:0;background:rgba(42,20,32,.4);display:none;z-index:20}
+.painel.aberto{display:block}
+.gaveta{position:absolute;right:0;top:0;bottom:0;width:min(420px,100%);background:#fff;padding:28px;display:flex;flex-direction:column}
+.gaveta h2{font-family:'DM Serif Display',serif;font-weight:400;font-size:30px;margin:0}
+.fechar{position:absolute;right:16px;top:16px;width:44px;height:44px;border-radius:50%;border:0;background:var(--rosa);cursor:pointer;font-size:22px;color:var(--ameixa)}
+.itens{flex:1;overflow:auto;margin:20px 0;list-style:none;padding:0}
+.itens li{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid var(--rosa)}
+.itens .qtd{display:flex;align-items:center;gap:6px}
+.itens .qtd button{width:34px;height:34px;border-radius:50%;border:1.5px solid var(--rosa2);background:#fff;cursor:pointer}
+.vazio{color:var(--cinza);margin-top:24px}
+.total{display:flex;justify-content:space-between;font-size:20px;font-weight:600;padding:16px 0}
+.finalizar{background:var(--ameixa);color:#fff;border:0;border-radius:999px;min-height:54px;font-weight:600;font-size:17px;cursor:pointer}
+.finalizar:disabled{opacity:.4;cursor:not-allowed}
+.msg{color:var(--ameixa2);font-weight:600;min-height:24px;margin-top:12px}
+footer{border-top:1px solid var(--rosa2);padding:32px 0;color:var(--cinza);font-size:14.5px;text-align:center}
+@media (max-width:980px){.grade{grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}}
+@media (max-width:600px){.prod .linha{flex-direction:column;align-items:stretch}.add{width:100%}}
+</style>
+</head>
+<body>
+<div class="faixa">Projeto modelo criado pela Brazuka Web para demonstração. <a href="../index.html#projetos">Voltar ao site da Brazuka Web</a></div>
+<header>
+  <div class="wrap">
+    <span class="logo">Flor de Sal</span>
+    <button class="sacola" id="abrir" aria-haspopup="dialog">Sacola <b id="contador">0</b></button>
+  </div>
+</header>
+<main class="wrap">
+  <div class="topo">
+    <h1>Peças feitas à mão, em pequenas tiragens.</h1>
+    <p>Roupas e acessórios produzidos no nosso ateliê. Escolha, coloque na sacola e receba em casa.</p>
+  </div>
+  <div class="filtros" role="group" aria-label="Filtrar por categoria" id="filtros"></div>
+  <div class="grade" id="grade"></div>
+</main>
+<footer>Ateliê Flor de Sal é um nome fictício. Produtos e preços são exemplos.</footer>
+<div class="painel" id="painel">
+  <div class="gaveta" role="dialog" aria-modal="true" aria-labelledby="t-sacola">
+    <button class="fechar" id="fechar" aria-label="Fechar sacola">×</button>
+    <h2 id="t-sacola">Sua sacola</h2>
+    <ul class="itens" id="itens"></ul>
+    <div class="total"><span>Total</span><span id="total">R$ 0,00</span></div>
+    <button class="finalizar" id="finalizar">Finalizar compra</button>
+    <p class="msg" id="msg" role="status"></p>
+  </div>
+</div>
+<script>
+var produtos=[
+ {id:1,nome:'Vestido Maré',cat:'Roupas',preco:189.9,cor:'#efd0d8'},
+ {id:2,nome:'Blusa Brisa',cat:'Roupas',preco:119.9,cor:'#f3dfe4'},
+ {id:3,nome:'Saia Areia',cat:'Roupas',preco:139.9,cor:'#e7c3cd'},
+ {id:4,nome:'Bolsa Concha',cat:'Bolsas',preco:229.9,cor:'#dcb0bd'},
+ {id:5,nome:'Bolsa Mini Coral',cat:'Bolsas',preco:159.9,cor:'#efd6dc'},
+ {id:6,nome:'Brinco Pérola',cat:'Acessórios',preco:59.9,cor:'#f6e8ec'},
+ {id:7,nome:'Colar Onda',cat:'Acessórios',preco:79.9,cor:'#e9ccd4'},
+ {id:8,nome:'Lenço Litoral',cat:'Acessórios',preco:69.9,cor:'#f1dbe1'}
+];
+var sacola={},filtro='Todos';
+var brl=function(v){return v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'})};
+function filtros(){var cats=['Todos'].concat([...new Set(produtos.map(p=>p.cat))]);var el=document.getElementById('filtros');el.innerHTML='';cats.forEach(function(c){var b=document.createElement('button');b.className='filtro';b.textContent=c;b.setAttribute('aria-pressed',c===filtro);b.onclick=function(){filtro=c;filtros();grade()};el.appendChild(b)})}
+function grade(){var el=document.getElementById('grade');el.innerHTML='';produtos.filter(p=>filtro==='Todos'||p.cat===filtro).forEach(function(p){var d=document.createElement('article');d.className='prod';d.innerHTML='<div class="img" style="background:'+p.cor+'" aria-hidden="true">'+p.nome.split(' ')[0]+'</div><h2>'+p.nome+'</h2><span class="cat">'+p.cat+'</span><div class="linha"><span class="preco">'+brl(p.preco)+'</span><button class="add">Adicionar</button></div>';d.querySelector('.add').onclick=function(e){sacola[p.id]=(sacola[p.id]||0)+1;atualizar();e.target.textContent='Adicionado';setTimeout(function(){e.target.textContent='Adicionar'},1200)};el.appendChild(d)})}
+function atualizar(){var n=0,t=0,ul=document.getElementById('itens');ul.innerHTML='';Object.keys(sacola).forEach(function(id){var p=produtos.find(x=>x.id==id),q=sacola[id];n+=q;t+=q*p.preco;var li=document.createElement('li');li.innerHTML='<span><b>'+p.nome+'</b><br><small>'+brl(p.preco)+'</small></span><span class="qtd"><button aria-label="Tirar um">−</button><span>'+q+'</span><button aria-label="Adicionar mais um">+</button></span>';var bs=li.querySelectorAll('button');bs[0].onclick=function(){sacola[id]--;if(!sacola[id])delete sacola[id];atualizar()};bs[1].onclick=function(){sacola[id]++;atualizar()};ul.appendChild(li)});if(!n)ul.innerHTML='<li class="vazio">Sua sacola está vazia. Escolha uma peça para começar.</li>';document.getElementById('contador').textContent=n;document.getElementById('total').textContent=brl(t);document.getElementById('finalizar').disabled=!n;document.getElementById('msg').textContent=''}
+var painel=document.getElementById('painel');
+document.getElementById('abrir').onclick=function(){painel.classList.add('aberto');document.getElementById('fechar').focus()};
+document.getElementById('fechar').onclick=function(){painel.classList.remove('aberto');document.getElementById('abrir').focus()};
+painel.onclick=function(e){if(e.target===painel){painel.classList.remove('aberto')}};
+document.addEventListener('keydown',function(e){if(e.key==='Escape'&&painel.classList.contains('aberto')){painel.classList.remove('aberto');document.getElementById('abrir').focus()}});
+document.getElementById('finalizar').onclick=function(){document.getElementById('msg').textContent='No site de verdade, aqui o cliente escolheria o frete e pagaria com Pix ou cartão.'};
+filtros();grade();atualizar();
+</script>
+</body>
+</html>

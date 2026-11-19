@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Navalha &amp; Café — projeto modelo da Brazuka Web</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--fundo:#16110d;--fundo2:#211912;--ouro:#e9c58f;--ouro2:#f3dcb4;--creme:#f4ece0;--cinza:#b9a893}
+*{box-sizing:border-box}
+body{margin:0;background:var(--fundo);color:var(--creme);font-family:Inter,system-ui,sans-serif;font-size:17px;line-height:1.6}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--ouro);outline-offset:3px}
+.faixa{background:#FFC93C;color:#0E3B2C;font-size:14.5px;font-weight:600;text-align:center;padding:10px 16px}
+.faixa a{color:#0E3B2C}
+.wrap{width:min(100% - 40px,1100px);margin-inline:auto}
+header{display:flex;justify-content:space-between;align-items:center;padding:24px 0}
+.logo{font-family:Fraunces,serif;font-weight:800;font-size:24px;color:var(--ouro)}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:50px;padding:0 24px;border-radius:999px;background:var(--ouro);color:var(--fundo);font-weight:600;border:0;font-size:16px;cursor:pointer;text-decoration:none}
+.btn:hover{background:var(--ouro2)}
+.btn.linha{background:transparent;color:var(--ouro);border:1.5px solid var(--ouro)}
+.hero{padding:64px 0 96px;display:grid;grid-template-columns:1.2fr .8fr;gap:48px;align-items:center}
+.hero h1{font-family:Fraunces,serif;font-weight:800;font-size:clamp(46px,7vw,92px);line-height:.95;margin:0;letter-spacing:-.02em}
+.hero p{color:var(--cinza);font-size:19px;max-width:40ch;margin:24px 0 32px}
+.hero .acoes{display:flex;gap:12px;flex-wrap:wrap}
+.horario{background:var(--fundo2);border:1px solid #3a2c20;border-radius:24px;padding:32px}
+.horario h2{font-family:Fraunces,serif;font-size:24px;margin:0 0 16px;color:var(--ouro)}
+.horario dl{margin:0;display:grid;grid-template-columns:1fr auto;gap:12px 24px}
+.horario dt{color:var(--cinza)}.horario dd{margin:0;font-weight:600}
+section{padding:88px 0;border-top:1px solid #2c221a}
+section h2.t{font-family:Fraunces,serif;font-size:clamp(34px,4.5vw,52px);margin:0 0 40px;line-height:1}
+.precos{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 56px}
+.item{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:20px 0;border-bottom:1px dashed #4a3a2b}
+.item b{font-size:19px}.item span{display:block;color:var(--cinza);font-size:15px}
+.item em{font-style:normal;font-family:Fraunces,serif;font-size:24px;color:var(--ouro);white-space:nowrap}
+.sobre{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+.foto{aspect-ratio:4/5;border-radius:24px;background:repeating-linear-gradient(135deg,#2a2018 0 14px,#241b14 14px 28px);display:grid;place-items:center;color:var(--cinza);font-size:15px;text-align:center;padding:20px}
+.sobre p{color:var(--cinza);font-size:18px}
+.sobre p+p{margin-top:16px}
+.depo{color:var(--cinza)}
+.final{text-align:center}
+.final p{color:var(--cinza);margin:-20px 0 32px}
+footer{padding:40px 0;color:var(--cinza);font-size:14.5px;border-top:1px solid #2c221a;text-align:center}
+.aviso{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);background:var(--creme);color:var(--fundo);padding:14px 20px;border-radius:14px;font-weight:600;font-size:15px;opacity:0;pointer-events:none;transition:.25s;max-width:calc(100% - 32px);text-align:center}
+.aviso.on{opacity:1;transform:translate(-50%,0)}
+@media (max-width:820px){.hero,.sobre{grid-template-columns:1fr}.precos{grid-template-columns:1fr}.hero{padding:40px 0 72px}}
+</style>
+</head>
+<body>
+<div class="faixa">Projeto modelo criado pela Brazuka Web para demonstração. <a href="../index.html#projetos">Voltar ao site da Brazuka Web</a></div>
+<div class="wrap">
+  <header>
+    <span class="logo">Navalha &amp; Café</span>
+    <button class="btn demo">Agendar horário</button>
+  </header>
+  <div class="hero">
+    <div>
+      <h1>Corte bom, café quente, conversa boa.</h1>
+      <p>Barbearia de bairro com hora marcada. Você chega, toma um café e sai no capricho, sem fila e sem pressa.</p>
+      <div class="acoes"><button class="btn demo">Agendar pelo WhatsApp</button><a class="btn linha" href="#precos">Ver preços</a></div>
+    </div>
+    <aside class="horario" aria-label="Horário de funcionamento">
+      <h2>Horários</h2>
+      <dl>
+        <dt>Terça a sexta</dt><dd>9h às 20h</dd>
+        <dt>Sábado</dt><dd>8h às 18h</dd>
+        <dt>Domingo e segunda</dt><dd>Fechado</dd>
+      </dl>
+    </aside>
+  </div>
+</div>
+<section id="precos">
+  <div class="wrap">
+    <h2 class="t">Serviços e preços</h2>
+    <div class="precos">
+      <div class="item"><div><b>Corte</b><span>Máquina e tesoura, com lavagem</span></div><em>R$ 45</em></div>
+      <div class="item"><div><b>Barba</b><span>Toalha quente e navalha</span></div><em>R$ 35</em></div>
+      <div class="item"><div><b>Corte + barba</b><span>O combo mais pedido</span></div><em>R$ 70</em></div>
+      <div class="item"><div><b>Pezinho</b><span>Acabamento entre um corte e outro</span></div><em>R$ 15</em></div>
+      <div class="item"><div><b>Sobrancelha</b><span>Na navalha</span></div><em>R$ 15</em></div>
+      <div class="item"><div><b>Corte infantil</b><span>Até 12 anos</span></div><em>R$ 35</em></div>
+    </div>
+  </div>
+</section>
+<section>
+  <div class="wrap sobre">
+    <div class="foto">Espaço para uma foto da barbearia</div>
+    <div>
+      <h2 class="t">Desde o primeiro café</h2>
+      <p>A Navalha &amp; Café nasceu da vontade de ter uma barbearia onde dá gosto ficar: cadeira confortável, música boa e um café passado na hora para quem está esperando.</p>
+      <p>Aqui cada cliente tem horário marcado. Assim ninguém espera à toa e cada corte recebe a atenção que merece.</p>
+    </div>
+  </div>
+</section>
+<section class="final">
+  <div class="wrap">
+    <h2 class="t">Bora marcar o seu?</h2>
+    <p>Escolha o melhor horário e confirme pelo WhatsApp em poucos segundos.</p>
+    <button class="btn demo">Agendar horário</button>
+  </div>
+</section>
+<footer>Navalha &amp; Café é um nome fictício. Preços e horários são exemplos.</footer>
+<div class="aviso" id="aviso" role="status"></div>
+<script>
+document.querySelectorAll('.demo').forEach(function(b){b.addEventListener('click',function(){var a=document.getElementById('aviso');a.textContent='No site de verdade, este botão abriria o WhatsApp da barbearia com a mensagem pronta.';a.classList.add('on');clearTimeout(window.__t);window.__t=setTimeout(function(){a.classList.remove('on')},3200);});});
+</script>
+</body>
+</html>

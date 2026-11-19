@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Clínica Viva Bem — agendamento online, projeto modelo da Brazuka Web</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--azul:#2456b5;--azul2:#14306b;--ceu:#eef3fb;--linha:#cfdcf0;--tinta:#152240;--cinza:#5a6a88;--verde:#1d8a5b}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ceu);color:var(--tinta);font-family:'Plus Jakarta Sans',system-ui,sans-serif;font-size:16.5px;line-height:1.55}
+button,input{font:inherit}
+:focus-visible{outline:3px solid var(--azul);outline-offset:3px}
+.faixa{background:#FFC93C;color:#0E3B2C;font-size:14.5px;font-weight:600;text-align:center;padding:10px 16px}
+.faixa a{color:#0E3B2C}
+.wrap{width:min(100% - 32px,980px);margin-inline:auto}
+header{padding:24px 0;display:flex;justify-content:space-between;align-items:center}
+.logo{font-weight:800;font-size:22px;color:var(--azul2)}
+.logo span{color:var(--azul)}
+.app{background:#fff;border-radius:28px;box-shadow:0 20px 60px rgba(20,48,107,.08);display:grid;grid-template-columns:300px 1fr;overflow:hidden;margin-bottom:64px}
+.lado{background:var(--azul2);color:#fff;padding:32px}
+.lado h1{font-size:28px;line-height:1.15;margin:0 0 12px}
+.lado p{color:#c3d1ee;margin:0 0 28px;font-size:15.5px}
+.passos{list-style:none;margin:0;padding:0;display:grid;gap:14px}
+.passos li{display:flex;gap:12px;align-items:center;color:#9fb3dd;font-weight:500}
+.passos li i{width:30px;height:30px;border-radius:50%;border:2px solid #5d79b5;display:grid;place-items:center;font-style:normal;font-size:14px;font-weight:700;flex-shrink:0}
+.passos li.atual{color:#fff}.passos li.atual i{border-color:#fff;background:#fff;color:var(--azul2)}
+.passos li.feito{color:#c3d1ee}.passos li.feito i{background:var(--azul);border-color:var(--azul);color:#fff}
+.resumo{margin-top:32px;padding-top:20px;border-top:1px solid #34508e;font-size:15px;color:#c3d1ee;display:grid;gap:6px}
+.resumo b{color:#fff}
+.corpo{padding:36px}
+.corpo h2{font-size:24px;margin:0 0 20px}
+.grade{display:grid;gap:12px}
+.servicos{grid-template-columns:repeat(2,minmax(0,1fr))}
+.dias{grid-template-columns:repeat(6,minmax(0,1fr))}
+.horas{grid-template-columns:repeat(4,minmax(0,1fr))}
+.op{border:2px solid var(--linha);background:#fff;border-radius:16px;padding:14px;text-align:left;cursor:pointer;color:var(--tinta);min-height:48px}
+.op:hover:not(:disabled){border-color:var(--azul)}
+.op[aria-pressed="true"]{border-color:var(--azul);background:var(--azul);color:#fff}
+.op:disabled{opacity:.35;cursor:not-allowed;text-decoration:line-through}
+.op b{display:block;font-size:16.5px}.op small{color:inherit;opacity:.75}
+.dias .op,.horas .op{text-align:center;padding:10px 6px}
+.dias .op b{font-size:22px}
+.campo{display:grid;gap:8px;margin-bottom:16px}
+.campo label{font-weight:700;font-size:15px}
+.campo input{border:2px solid var(--linha);border-radius:12px;padding:12px 14px;font-size:16px}
+.campo input:focus{outline:none;border-color:var(--azul)}
+.acoes{display:flex;justify-content:space-between;gap:12px;margin-top:28px}
+.btn{border:0;border-radius:999px;min-height:50px;padding:0 26px;font-weight:700;cursor:pointer;background:var(--azul);color:#fff}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.btn.sec{background:var(--ceu);color:var(--azul2)}
+.ok{text-align:center;padding:32px 8px}
+.ok .sel{width:72px;height:72px;border-radius:50%;background:var(--verde);display:grid;place-items:center;margin:0 auto 20px}
+.ok .sel svg{width:36px;height:36px;color:#fff}
+.ok p{color:var(--cinza);max-width:42ch;margin:12px auto 0}
+.erro{color:#b3261e;font-weight:600;font-size:15px;min-height:22px}
+footer{color:var(--cinza);font-size:14.5px;text-align:center;padding-bottom:40px}
+@media (max-width:820px){.app{grid-template-columns:1fr}.lado{padding:24px}.lado .resumo{display:none}.corpo{padding:24px}.dias{grid-template-columns:repeat(3,minmax(0,1fr))}.horas{grid-template-columns:repeat(3,minmax(0,1fr))}.servicos{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="faixa">Projeto modelo criado pela Brazuka Web para demonstração. <a href="../index.html#projetos">Voltar ao site da Brazuka Web</a></div>
+<div class="wrap">
+  <header><span class="logo">Viva<span>Bem</span></span><span style="color:var(--cinza);font-size:15px">Agendamento online</span></header>
+  <div class="app">
+    <aside class="lado">
+      <h1>Marque sua consulta em 1 minuto</h1>
+      <p>Escolha o serviço, o dia e o horário. A confirmação chega no seu WhatsApp.</p>
+      <ol class="passos" id="passos"></ol>
+      <div class="resumo" id="resumo"></div>
+    </aside>
+    <section class="corpo" id="corpo" aria-live="polite"></section>
+  </div>
+  <footer>Clínica Viva Bem é um nome fictício. Serviços e horários são exemplos.</footer>
+</div>
+<script>
+var servicos=[{n:'Fisioterapia',d:'50 min'},{n:'Pilates',d:'50 min'},{n:'Massagem relaxante',d:'60 min'},{n:'Avaliação postural',d:'40 min'}];
+var horas=['08:00','09:00','10:00','11:00','14:00','15:00','16:00','17:00'];
+var etapas=['Serviço','Dia','Horário','Seus dados'];
+var estado={passo:0,servico:null,dia:null,hora:null,nome:'',zap:''};
+var semana=['dom','seg','ter','qua','qui','sex','sáb'];
+function proximosDias(){var r=[],d=new Date();while(r.length<6){d.setDate(d.getDate()+1);if(d.getDay()!==0)r.push(new Date(d))}return r}
+var dias=proximosDias();
+function ocupado(i,h){return ((i*7+horas.indexOf(h)*3)%5)===0}
+function fmt(d){return semana[d.getDay()]+', '+d.getDate()+'/'+(d.getMonth()+1)}
+function lateral(){var p=document.getElementById('passos');p.innerHTML='';etapas.forEach(function(e,i){var li=document.createElement('li');li.className=i<estado.passo?'feito':(i===estado.passo?'atual':'');li.innerHTML='<i>'+(i<estado.passo?'✓':i+1)+'</i>'+e;p.appendChild(li)});var r=document.getElementById('resumo');r.innerHTML=(estado.servico?'<span>Serviço: <b>'+estado.servico+'</b></span>':'')+(estado.dia!==null?'<span>Dia: <b>'+fmt(dias[estado.dia])+'</b></span>':'')+(estado.hora?'<span>Horário: <b>'+estado.hora+'</b></span>':'')}
+function botao(html,ativo,on,des){var b=document.createElement('button');b.type='button';b.className='op';b.innerHTML=html;b.setAttribute('aria-pressed',!!ativo);if(des)b.disabled=true;b.onclick=on;return b}
+function render(){lateral();var c=document.getElementById('corpo');c.innerHTML='';
+ if(estado.passo===4){c.innerHTML='<div class="ok"><div class="sel"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" d="m5 12.5 4.5 4.5L19 7.5"/></svg></div><h2>Consulta agendada!</h2><p>'+estado.nome.split(' ')[0]+', sua '+estado.servico.toLowerCase()+' está marcada para '+fmt(dias[estado.dia])+' às '+estado.hora+'. No sistema de verdade, a confirmação e o lembrete chegariam no seu WhatsApp e a clínica veria o horário na agenda dela.</p><div class="acoes" style="justify-content:center"><button class="btn sec" id="novo">Fazer outro agendamento</button></div></div>';document.getElementById('novo').onclick=function(){estado={passo:0,servico:null,dia:null,hora:null,nome:'',zap:''};render()};return}
+ var h=document.createElement('h2');h.textContent=['Qual serviço você quer?','Escolha o dia','Escolha o horário','Para quem é a consulta?'][estado.passo];c.appendChild(h);
+ var g=document.createElement('div');
+ if(estado.passo===0){g.className='grade servicos';servicos.forEach(function(s){g.appendChild(botao('<b>'+s.n+'</b><small>'+s.d+'</small>',estado.servico===s.n,function(){estado.servico=s.n;render()}))})}
+ if(estado.passo===1){g.className='grade dias';dias.forEach(function(d,i){g.appendChild(botao('<small>'+semana[d.getDay()]+'</small><b>'+d.getDate()+'</b>',estado.dia===i,function(){estado.dia=i;estado.hora=null;render()}))})}
+ if(estado.passo===2){g.className='grade horas';horas.forEach(function(x){g.appendChild(botao('<b>'+x+'</b>',estado.hora===x,function(){estado.hora=x;render()},ocupado(estado.dia,x)))});var leg=document.createElement('p');leg.style.cssText='color:var(--cinza);font-size:14.5px;margin:16px 0 0';leg.textContent='Horários riscados já estão ocupados.';c.appendChild(g);c.appendChild(leg);g=null}
+ if(estado.passo===3){g.innerHTML='<div class="campo"><label for="nome">Nome completo</label><input id="nome" autocomplete="name" value="'+estado.nome+'"></div><div class="campo"><label for="zap">WhatsApp</label><input id="zap" inputmode="tel" placeholder="(21) 90000-0000" value="'+estado.zap+'"></div><p class="erro" id="erro" role="alert"></p>'}
+ if(g)c.appendChild(g);
+ var a=document.createElement('div');a.className='acoes';
+ var v=document.createElement('button');v.className='btn sec';v.textContent='Voltar';v.style.visibility=estado.passo?'visible':'hidden';v.onclick=function(){estado.passo--;render()};
+ var n=document.createElement('button');n.className='btn';n.textContent=estado.passo===3?'Confirmar agendamento':'Continuar';
+ n.disabled=(estado.passo===0&&!estado.servico)||(estado.passo===1&&estado.dia===null)||(estado.passo===2&&!estado.hora);
+ n.onclick=function(){if(estado.passo===3){estado.nome=document.getElementById('nome').value.trim();estado.zap=document.getElementById('zap').value.trim();if(!estado.nome||estado.zap.replace(/\D/g,'').length<10){document.getElementById('erro').textContent='Preencha seu nome e um WhatsApp com DDD.';return}}estado.passo++;render();var f=document.querySelector('#corpo button, #corpo input');if(f)f.focus()};
+ a.appendChild(v);a.appendChild(n);c.appendChild(a)}
+render();
+</script>
+</body>
+</html>
